@@ -43,7 +43,13 @@ try:
 except IndexError:
     print(f'Not a valid config file')
     exit()
+except FileNotFoundError:
+    print(f'No config file found, creating an empty one')
+    open(args.f, 'a').close()
 
+if args.x == None:
+    print(parser.print_help())
+    exit(1)
 
 device = InputDevice(f'/dev/input/event{args.x}')
 print(f'Redirecting {device.name} at {device.path} to /dev/uinput\n')
